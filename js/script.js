@@ -94,13 +94,13 @@ function buildAndShowHomeHTML (categories) {
 
       $ajaxUtils.sendGetRequest(
         categoriesTitleHtml,
-        function (chooseRandomCategory) {
+        function (categoriesTitleHtml) {
           // Retrieve single category snippet
           $ajaxUtils.sendGetRequest(
             categoryHtml,
             function (categoryHtml) {
               var categoriesViewHtml =
-                buildCategoriesViewHtml(categories,
+                buildCategoriesViewHtml(chooseRandomCategory(categories),
                                         categoriesTitleHtml,
                                         categoryHtml);
               insertHtml("#main-content", categoriesViewHtml);
