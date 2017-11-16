@@ -92,6 +92,29 @@ function buildAndShowHomeHTML (categories) {
       // variable's name implies it expects.
       // var chosenCategoryShortName = ....
 
+      $ajaxUtils.sendGetRequest(
+        categoriesTitleHtml,
+        function (chooseRandomCategory) {
+          // Retrieve single category snippet
+          $ajaxUtils.sendGetRequest(
+            categoryHtml,
+            function (categoryHtml) {
+              var categoriesViewHtml =
+                buildCategoriesViewHtml(categories,
+                                        categoriesTitleHtml,
+                                        categoryHtml);
+              insertHtml("#main-content", categoriesViewHtml);
+            },
+            false);
+        },
+        
+
+
+
+             
+          
+        
+
 
       // TODO: STEP 3: Substitute {{randomCategoryShortName}} in the home html snippet with the
       // chosen category from STEP 2. Use existing insertProperty function for that purpose.
