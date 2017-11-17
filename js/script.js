@@ -13,7 +13,6 @@ $(function () { // Same as document.addEventListener("DOMContentLoaded"...
 
 var dc = {};
 
-
 var homeHtmlUrl = "snippets/home-snippet.html";
 var allCategoriesUrl =
   "https://davids-restaurant.herokuapp.com/categories.json";
@@ -82,38 +81,37 @@ document.addEventListener("DOMContentLoaded", function (event) {
 // returned from the server.
 function buildAndShowHomeHTML (categories) {
 
+
+
+  // Load title snippet of categories page
+  $ajaxUtils.sendGetRequest(
+    categoriesTitleHtml,
+    function (categoriesTitleHtml) {
+      // Retrieve single category snippet
+      $ajaxUtils.sendGetRequest(
+        categoryHtml,
+        function (categoryHtml) {
+          var categoriesViewHtml =
+            buildCategoriesViewHtml(chooseRandomCategory(categories),
+                                    categoriesTitleHtml,
+                                    categoryHtml);
+          insertHtml("#main-content", categoriesViewHtml);
+        },
+        false);
+    },
+    false);
+
   // Load home snippet page
   $ajaxUtils.sendGetRequest(
     homeHtmlUrl,
     function (homeHtml) {
+
 
       // TODO: STEP 2: Here, call chooseRandomCategory, passing it retrieved 'categories'
       // Pay attention to what type of data that function returns vs what the chosenCategoryShortName
       // variable's name implies it expects.
       // var chosenCategoryShortName = ....
 
-      $ajaxUtils.sendGetRequest(
-        categoriesTitleHtml,
-        function (categoriesTitleHtml) {
-          // Retrieve single category snippet
-          $ajaxUtils.sendGetRequest(
-            categoryHtml,
-            function (categoryHtml) {
-              var categoriesViewHtml =
-                buildCategoriesViewHtml(chooseRandomCategory(categories),
-                                        categoriesTitleHtml,
-                                        categoryHtml);
-              insertHtml("#main-content", categoriesViewHtml);
-            },
-            false);
-        },
-        
-
-
-
-             
-          
-        
 
 
       // TODO: STEP 3: Substitute {{randomCategoryShortName}} in the home html snippet with the
